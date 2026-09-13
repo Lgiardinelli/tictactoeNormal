@@ -1,26 +1,26 @@
 package fr.univlille.model;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-class BoardTest {
+public class BoardTest {
 
     private Board board;
 
-    @BeforeEach
-    void init() {
+    @Before
+    public void init() {
         board = new Board();
     }
 
     @Test
-    void test_initialisation() {
+    public void test_initialisation() {
         assertNull(board.getWinner());
         assertEquals(Player.X, board.getCurrentTurn());
         assertTrue(board.isInProgressMode());
@@ -29,7 +29,7 @@ class BoardTest {
     }
 
     @Test
-    void test_joue_case() {
+    public void test_joue_case() {
         board.mark(1, 1);
 
         assertEquals(Player.X, lireCase(1, 1));
@@ -39,7 +39,7 @@ class BoardTest {
     }
 
     @Test
-    void test_case_hors_limites() {
+    public void test_case_hors_limites() {
         board.mark(-1, 0);
         board.mark(0, 3);
 
@@ -50,7 +50,7 @@ class BoardTest {
     }
 
     @Test
-    void test_case_deja_jouee() {
+    public void test_case_deja_jouee() {
         board.mark(0, 0);
         board.mark(0, 0);
 
@@ -61,7 +61,7 @@ class BoardTest {
     }
 
     @Test
-    void test_joueur_o_commence() {
+    public void test_joueur_o_commence() {
         board.setCurrentTurn(Player.O);
         board.mark(0, 0);
 
@@ -71,7 +71,7 @@ class BoardTest {
     }
 
     @Test
-    void test_victoire_horizontale() {
+    public void test_victoire_horizontale() {
         board.mark(0, 0);
         board.mark(1, 0);
         board.mark(0, 1);
@@ -86,7 +86,7 @@ class BoardTest {
     }
 
     @Test
-    void test_victoire_verticale() {
+    public void test_victoire_verticale() {
         board.mark(0, 0);
         board.mark(0, 1);
         board.mark(1, 0);
@@ -101,7 +101,7 @@ class BoardTest {
     }
 
     @Test
-    void test_victoire_verticale_de_x() {
+    public void test_victoire_verticale_de_x() {
         board.mark(0, 0);
         board.mark(0, 1);
         board.mark(1, 0);
@@ -117,7 +117,7 @@ class BoardTest {
     }
 
     @Test
-    void test_victoire_horizontale_de_o() {
+    public void test_victoire_horizontale_de_o() {
         board.setCurrentTurn(Player.O);
         board.mark(1, 0);
         board.mark(0, 0);
@@ -134,7 +134,7 @@ class BoardTest {
     }
 
     @Test
-    void test_victoire_diagonale() {
+    public void test_victoire_diagonale() {
         board.mark(0, 0);
         board.mark(0, 1);
         board.mark(1, 1);
@@ -148,7 +148,7 @@ class BoardTest {
     }
 
     @Test
-    void test_victoire_diagonale_inverse() {
+    public void test_victoire_diagonale_inverse() {
         board.mark(0, 0);
         board.mark(0, 2);
         board.mark(1, 0);
@@ -163,7 +163,7 @@ class BoardTest {
     }
 
     @Test
-    void test_partie_nulle_sans_gagnant() {
+    public void test_partie_nulle_sans_gagnant() {
         board.mark(0, 0);
         board.mark(0, 1);
         board.mark(0, 2);
@@ -189,7 +189,7 @@ class BoardTest {
     }
 
     @Test
-    void test_plus_de_coup_apres_fin() {
+    public void test_plus_de_coup_apres_fin() {
         board.mark(0, 0);
         board.mark(1, 0);
         board.mark(0, 1);
@@ -207,7 +207,7 @@ class BoardTest {
     }
 
     @Test
-    void test_restart() {
+    public void test_restart() {
         board.mark(0, 0);
         board.mark(1, 0);
         board.mark(0, 1);
@@ -258,8 +258,8 @@ class BoardTest {
     private void verifierPlateau(Player[][] expected) {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                assertEquals(expected[row][col], lireCase(row, col),
-                        "Unexpected value at [" + row + "][" + col + "]");
+                assertEquals("Unexpected value at [" + row + "][" + col + "]",
+                        expected[row][col], lireCase(row, col));
             }
         }
     }
@@ -285,6 +285,3 @@ class BoardTest {
         }
     }
 }
-
-
-
