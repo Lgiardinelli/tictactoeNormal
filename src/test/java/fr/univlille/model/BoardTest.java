@@ -48,6 +48,46 @@ public class BoardTest {
     }
 
     @Test
+    public void test_cover_branch_invalides() {
+        board.mark(0, 0);
+        board.mark(0, 0);
+
+        board.mark(0, 0);
+        board.mark(1, 0);
+        board.mark(0, 1);
+        board.mark(1, 1);
+        board.mark(0, 2);
+
+        board.mark(2, 2);
+
+        assertEquals(Player.X, board.getWinner());
+        assertTrue(board.isInFinishedMode());
+        assertEquals(Player.X, lireCase(0, 0));
+        assertEquals(Player.X, lireCase(0, 1));
+        assertEquals(Player.X, lireCase(0, 2));
+        assertEquals(Player.O, lireCase(1, 0));
+        assertEquals(Player.O, lireCase(1, 1));
+    }
+
+    @Test
+    public void test_mutation_diagonale_inverse() {
+        board.mark(0, 0);
+        board.mark(0, 2);
+        board.mark(1, 0);
+        board.mark(0, 1);
+        board.mark(2, 1);
+        board.mark(2, 0);
+        board.mark(1, 2);
+        board.mark(1, 1);
+
+        assertEquals(Player.O, board.getWinner());
+        assertTrue(board.isInFinishedMode());
+        assertEquals(Player.O, lireCase(0, 2));
+        assertEquals(Player.O, lireCase(1, 1));
+        assertEquals(Player.O, lireCase(2, 0));
+    }
+
+    @Test
     public void test_victoire_horizontale() {
         board.mark(0, 0);
         board.mark(1, 0);
